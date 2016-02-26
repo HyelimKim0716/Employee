@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<bean id="dateFormat" class="java.text.SimpleDateFormat">
+		<constructor-arg value="yyyy/MM/dd hh:mm:ss"/>
+	</bean>
+	
+	<bean class="com.hybrid.SpringTest">
+		<property name="shape">
+			<ref bean="shape"/>
+		</property>
+		<property name="shape1" ref="shape1" />
+		<property name="dateFormat" ref="dateFormat"/>
+		
+	</bean>
+
+	<!-- 생성자주입, id는 중복 불가 -->
+    <bean id="shape1" class="com.hybrid.shape.Shape">	
+		<constructor-arg><value>1000</value></constructor-arg>
+		<constructor-arg><value>2000</value></constructor-arg>
+		<constructor-arg><value>3000</value></constructor-arg>
+			<!-- <property name="date" value="2016/02/02"/> -->
+		<property name="date" ref="date1"/>
+    </bean>
+    
+    <bean id="date1" class="java.util.Date">
+    	<property name="year" value="116"/>	<!-- year - 1900 -->
+    	<property name="month" value="11"/>	<!-- month - 1 -->
+    	<property name="date" value="25"/>
+    </bean>
+	
+	
+	<!-- Spring이 알아서 bean 객체를 생성 (new)하고 객체 유지 및 조회(조회는 ctx(공장)에서)까지 가능 함 -->
+    <!-- 설정자주입 -->
+    <bean id="shape" class="com.hybrid.shape.Shape">	
+     	<property name="width"><value>100</value></property>
+     	<property name="height"><value>200</value></property>
+     	<property name="color"><value>30</value></property>
+     	<!-- <property name="date" value="2016/02/02"/> -->
+     	<property name="date" ref="date"/>	   
+        <!-- 필드변수가 아닌 property인 걸 기억하자!!! setColor(30)과 동일 -->
+    </bean>
+    
+     <bean id="date" class="java.util.Date">
+    	<property name="year" value="115"/>	<!-- year - 1900 -->
+    	<property name="month" value="1"/>	<!-- month - 1 -->
+    	<property name="date" value="15"/>
+    </bean>
+</beans>
