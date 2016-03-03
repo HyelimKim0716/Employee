@@ -2,11 +2,14 @@ package com.hybrid.model;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public class Emp {
 	int empno;
 	String ename;
 	String job;
 	Integer mgr; // null을 담을 수 있는 wrapper type으로
+	@JsonFormat(pattern="yyyy-MM-dd")	// formating하여 날짜처리
 	Date hiredate;
 	Float sal;	// 7,2 : 실수 의미
 	Float comm;
